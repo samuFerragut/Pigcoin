@@ -24,7 +24,7 @@ public class GenSig {
             keyGen.initialize(1024, random);
             KeyPair pair = keyGen.generateKeyPair();
             return pair;
-        
+
         } catch (Exception e) {
             return null;
         }

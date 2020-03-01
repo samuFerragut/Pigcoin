@@ -9,12 +9,12 @@ public class Wallet {
     private Double total_output = 0d;
     private Double balance = 0d;
 
-    void setSK(PrivateKey aPrivate) {
-        this.sKey = aPrivate;
+    void setSK(PrivateKey sKey) {
+        this.sKey = sKey;
     }
 
     PrivateKey getSK() {
-        return this.sKey = sKey;
+        return this.sKey;
     }
 
     void setAddress(PublicKey aPublic) {
@@ -22,6 +22,6 @@ public class Wallet {
     }
 
     PublicKey getAddress() {
-        return this.address = address;
+        return this.address;
     }
 }
