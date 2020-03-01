@@ -10,7 +10,9 @@ public class WalletTest {
     @Test
     public void setSKTest() {
         Wallet wallet = new Wallet();
-        assertEquals(wallet.getAddress(), wallet.getAddress());
-        System.out.println(wallet.getAddress());
+        KeyPair pair = GenSig.generateKeyPair();
+        wallet.setAddress(pair.getPublic());
+        assertEquals(wallet.getAddress().hashCode(), wallet.getAddress().hashCode());
+        System.out.println(wallet.getAddress().hashCode());
     }
 }

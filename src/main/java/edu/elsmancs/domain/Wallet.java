@@ -13,15 +13,25 @@ public class Wallet {
         this.sKey = sKey;
     }
 
-    PrivateKey getSK() {
-        return this.sKey;
-    }
-
     void setAddress(PublicKey aPublic) {
         this.address = aPublic;
     }
 
     PublicKey getAddress() {
         return this.address;
+    }
+
+    void generateKeyPair() {
+        KeyPair pair = GenSig.generateKeyPair();
+        this.setSK(pair.getPrivate());
+        this.setAddress(pair.getPublic());
+    }
+
+    @Override
+    public String toString() {
+        return "\nWallet = " + getAddress().hashCode() +
+                "\nTotal input = " + this.total_input +
+                "\nTotal output = " + this.total_output +
+                "\nBalance = " + this.balance;
     }
 }
