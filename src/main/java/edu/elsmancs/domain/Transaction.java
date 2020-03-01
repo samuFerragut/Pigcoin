@@ -7,11 +7,13 @@ public class Transaction {
     private String prev_hash = "";
     private PublicKey pKey_sender = null;
     private PublicKey pKey_recipient = null;
-    private int pigcoins = 0;
+    private double pigcoins = 0;
     private String message = "";
 
+    public Transaction() {}
+
     public Transaction(String hash, String prev_hash, PublicKey pKey_sender, PublicKey pKey_recipient,
-                       int pigcoins, String message) {
+                       double pigcoins, String message) {
         this.hash = hash;
         this.prev_hash = prev_hash;
         this.pKey_sender = pKey_sender;
@@ -36,7 +38,7 @@ public class Transaction {
         return pKey_recipient;
     }
 
-    int getPigcoins() {
+    double getPigcoins() {
         return pigcoins;
     }
 
