@@ -22,6 +22,7 @@ public class WalletTest {
         wallet.generateKeyPair();
         assertEquals(wallet.getAddress().hashCode(), wallet.getAddress().hashCode());
         System.out.println(wallet.getAddress().hashCode());
-        assertEquals(wallet.getSkey.hashCode(), wallet.getSkey.hashCode());
+        assertEquals(wallet.getSK().hashCode(), wallet.getSK().hashCode());
+        System.out.println(wallet.getSK().hashCode());
     }
 }

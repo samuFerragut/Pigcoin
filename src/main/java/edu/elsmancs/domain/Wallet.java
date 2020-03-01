@@ -1,6 +1,7 @@
 package edu.elsmancs.domain;
 
 import java.security.*;
+import java.util.logging.Level;
 
 public class Wallet {
     private PublicKey address = null;
@@ -11,6 +12,10 @@ public class Wallet {
 
     void setSK(PrivateKey sKey) {
         this.sKey = sKey;
+    }
+
+    PrivateKey getSK() {
+        return this.sKey;
     }
 
     void setAddress(PublicKey aPublic) {
