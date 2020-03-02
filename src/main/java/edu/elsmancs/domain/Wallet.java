@@ -1,6 +1,8 @@
 package edu.elsmancs.domain;
 
 import java.security.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 public class Wallet {
@@ -9,6 +11,8 @@ public class Wallet {
     private Double total_input = 0d;
     private Double total_output = 0d;
     private Double balance = 0d;
+    private List<Transaction> inputTransactions = new ArrayList<>();
+    private List<Transaction> outputTransactions = new ArrayList<>();
 
     void setSK(PrivateKey sKey) {
         this.sKey = sKey;
@@ -75,4 +79,29 @@ public class Wallet {
         }
         this.setBalance(getTotalInput() - getTotalOutput());
     }
+
+    void setInputTransactions(BlockChain blockChain) {
+        this.inputTransactions = blockChain.loadInputTransactions(this.getAddress());
+    }
+
+    List<Transaction> getInputTransactions() {
+        return inputTransactions;
+    }
+
+    List<Transaction> getOutputTransactions() {
+        return outputTransactions;
+    }
+
+    void loadInputTransactions(BlockChain blockChain) {
+        setInputTransactions(blockChain);
+    }
+
+    void loadOutputTransactions(BlockChain blockChain) {
+        setOutpuTransactions(blockChain);
+    }
+
+    void setOutpuTransactions(BlockChain blockChain) {
+        this.outputTransactions = blockChain.loadOutputTransactio(this.getAddress());
+    }
+
 }
