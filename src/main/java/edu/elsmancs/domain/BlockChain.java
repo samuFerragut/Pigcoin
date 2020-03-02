@@ -28,9 +28,16 @@ public class BlockChain {
         System.out.println(blockChain.get(position).toString());
     }
 
-    public List<Transaction> loadInputTransactions(PublicKey address) {
+    List<Transaction> loadInputTransactions(PublicKey address) {
         List<Transaction> inputTransactions = getBlockChain().stream().filter(transaction -> transaction.getPKey_recipient().equals(address))
                 .collect(Collectors.toCollection(ArrayList<Transaction>::new));
         return inputTransactions;
     }
+
+    List<Transaction> loadOutputTransactio(PublicKey address) {
+        List<Transaction> outputTransaction = getBlockChain().stream().filter(transaction -> transaction.getPKey_sender().equals(address))
+                .collect(Collectors.toCollection(ArrayList<Transaction>::new));
+        return outputTransaction;
+    }
+
 }
