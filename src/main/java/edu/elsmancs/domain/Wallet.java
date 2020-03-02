@@ -39,4 +39,40 @@ public class Wallet {
                 "\nTotal output = " + this.total_output +
                 "\nBalance = " + this.balance;
     }
+
+    void setTotalInput(double total_input) {
+        this.total_input = total_input;
+    }
+
+    double getTotalInput() {
+        return total_input;
+    }
+
+    void setTotalOutput(double total_output) {
+        this.total_output = total_output;
+    }
+
+    double getTotalOutput() {
+        return total_output;
+    }
+
+    void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    void loadCoins(BlockChain blockChain) {
+        this.setTotalOutput(0);
+        this.setTotalInput(0);
+
+        for (Transaction transaction : blockChain.getBlockChain()) {
+            if (this.getAddress().equals(transaction.getPKey_recipient())) {
+                this.setTotalInput(getTotalInput() + transaction.getPigcoins());
+            }else{}
+
+            if (this.getAddress().equals(transaction.getPKey_sender())) {
+                this.setTotalOutput(getTotalOutput() + transaction.getPigcoins());
+            }else {}
+        }
+        this.setBalance(getTotalInput() - getTotalOutput());
+    }
 }
