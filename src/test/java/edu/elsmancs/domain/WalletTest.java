@@ -48,5 +48,10 @@ public class WalletTest {
 
         wallet2.loadCoins(blockChain);
         wallet.loadCoins(blockChain);
+
+        assertEquals(10, wallet.getTotalInput(), 0);
+        assertEquals(20, wallet.getTotalOutput(), 0);
+        assertEquals(20, wallet2.getTotalInput(), 0);
+        assertEquals(10, wallet2.getTotalOutput(), 0);
     }
 }
