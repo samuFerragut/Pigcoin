@@ -17,4 +17,12 @@ public class BlockChain {
     ArrayList<Transaction> getBlockChain() {
         return this.blockChain;
     }
+
+    void summarize() {
+        blockChain.forEach((Transaction) -> {System.out.println(Transaction.toString());});
+    }
+
+    void summarize(int position) {
+        System.out.println(blockChain.get(position).toString());
+    }
 }
