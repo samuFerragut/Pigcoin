@@ -54,4 +54,6 @@ public class WalletTest {
         assertEquals(20, wallet2.getTotalInput(), 0);
         assertEquals(10, wallet2.getTotalOutput(), 0);
     }
+
+
 }
