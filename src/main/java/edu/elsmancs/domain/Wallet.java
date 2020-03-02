@@ -3,6 +3,7 @@ package edu.elsmancs.domain;
 import java.security.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 
 public class Wallet {
@@ -104,4 +105,6 @@ public class Wallet {
         this.outputTransactions = blockChain.loadOutputTransactio(this.getAddress());
     }
 
+ //   public Map<String, Double> collectCoins(Double pigcoins) {
+   // }
 }
