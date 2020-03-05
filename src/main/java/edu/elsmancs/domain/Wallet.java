@@ -66,23 +66,16 @@ public class Wallet {
     }
 
     void loadCoins(BlockChain blockChain) {
-        this.setTotalOutput(0);
-        this.setTotalInput(0);
-
-        for (Transaction transaction : blockChain.getBlockChain()) {
-            if (this.getAddress().equals(transaction.getPKey_recipient())) {
-                this.setTotalInput(getTotalInput() + transaction.getPigcoins());
-            }else{}
-
-            if (this.getAddress().equals(transaction.getPKey_sender())) {
-                this.setTotalOutput(getTotalOutput() + transaction.getPigcoins());
-            }else {}
-        }
-        this.setBalance(getTotalInput() - getTotalOutput());
+        List[] inOutput = blockChain.loadWallet(getAddress());
+        setInputTransactions(inOutput[0]);
+        setOutpuTransactions(inOutput[1]);
+        setTotalInput(loadInputTransactions(blockChain));
+        setTotalOutput(loadOutputTransactions(blockChain));
+        setBalance(getTotalInput() - getTotalOutput());
     }
 
-    void setInputTransactions(BlockChain blockChain) {
-        this.inputTransactions = blockChain.loadInputTransactions(this.getAddress());
+    void setInputTransactions(List<Transaction> inputTransactions) {
+        this.inputTransactions = inputTransactions;
     }
 
     List<Transaction> getInputTransactions() {
@@ -93,16 +86,22 @@ public class Wallet {
         return outputTransactions;
     }
 
-    void loadInputTransactions(BlockChain blockChain) {
-        setInputTransactions(blockChain);
+    double loadInputTransactions(BlockChain blockChain) {
+        double input = 0d;
+        blockChain.getBlockChain().stream().filter((transaction) -> (transaction.getPKey_recipient().equals(getAddress())))
+                .map((transaction) -> transaction.getPigcoins()).reduce(input, (accumulator, _item) -> accumulator + _item);
+        return input;
     }
 
-    void loadOutputTransactions(BlockChain blockChain) {
-        setOutpuTransactions(blockChain);
+    double loadOutputTransactions(BlockChain blockChain) {
+        double output = 0d;
+        blockChain.getBlockChain().stream().filter((transaction) -> (transaction.getPKey_recipient().equals(getAddress())))
+                .map((transaction) -> transaction.getPigcoins()).reduce(output, (accumulator, _item) -> accumulator + _item);
+        return output;
     }
 
-    void setOutpuTransactions(BlockChain blockChain) {
-        this.outputTransactions = blockChain.loadOutputTransactio(this.getAddress());
+    void setOutpuTransactions(List<Transaction> outpuTransactions) {
+        this.outputTransactions = outpuTransactions;
     }
 
  //   public Map<String, Double> collectCoins(Double pigcoins) {
