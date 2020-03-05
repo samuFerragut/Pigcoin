@@ -2,6 +2,7 @@ package edu.elsmancs.domain;
 
 import java.security.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -104,6 +105,19 @@ public class Wallet {
         this.outputTransactions = outpuTransactions;
     }
 
- //   public Map<String, Double> collectCoins(Double pigcoins) {
-   // }
+    void sendCoins(PublicKey pKey_recipient, double coins, String message, BlockChain blockChain) {
+        Map<String, Double> consumedCoins = collectCoins(coins);
+        byte[] signedTransaction = signTransaction(message);
+        blockChain.processTransactions(getAddress(), pKey_recipient, consumedCoins, message, signedTransaction);
+    }
+
+    byte[] signTransaction(String message) {
+        return GenSig.sign(getSK(), message);
+    }
+
+    Map<String, Double> collectCoins(double coins) {
+        Map<String, Double> consumedCoins = new HashMap<>();
+        return consumedCoins;
+    }
 }
+

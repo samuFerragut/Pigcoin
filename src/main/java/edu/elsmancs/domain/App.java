@@ -203,8 +203,8 @@ public class App {
          */
 
         Double pigcoins = 25d;
-   //     Map<String, Double> consumedCoins = wallet_1.collectCoins(pigcoins);
-   //     System.out.println("Pigcoins enviados a la wallet_2 y transacciones consumidas: " + consumedCoins);
+        Map<String, Double> consumedCoins = wallet_1.collectCoins(pigcoins);
+        System.out.println("Pigcoins enviados a la wallet_2 y transacciones consumidas: " + consumedCoins);
 
         /**
          * Una vez que recolectes los pigcoins (transacciones) de tu wallet
@@ -212,7 +212,7 @@ public class App {
          * Debes firmar el mensaje con tu clave privada.
          */
 
- /**       String message = "he roto la hucha :(";
+        String message = "he roto la hucha :(";
         byte[] signedTransaction = wallet_1.signTransaction(message); // usa GenSig.sign()
         wallet_1.sendCoins(wallet_2.getAddress(), pigcoins, message, bChain); // usa wallet.collectCoins() y bChain.processTransactions()
 
@@ -265,7 +265,7 @@ public class App {
 
         System.out.println("\n" + ">>>>>>>>>>>> Wallet_1 envia transaccion de 100 pigcoins a wallet_2 >>>>>>>>>>>>" + "\n");
 
-  //      wallet_1.sendCoins(wallet_2.getAddress(), 100d, "no tengo tantos :(", bChain);
+        wallet_1.sendCoins(wallet_2.getAddress(), 100d, "no tengo tantos :(", bChain);
 
         System.out.println("\n" + "Ver el total de pigcoins de las dos wallet" + "\n" +
                 "=========================================="            );
@@ -281,7 +281,7 @@ public class App {
 
         System.out.println("\n" + ">>>>>>>>>>>> Wallet_1 envia transaccion de 2.5 pigcoins a wallet_2 >>>>>>>>>>>>" + "\n");
 
-  //      wallet_1.sendCoins(wallet_2.getAddress(), 2.5d, "", bChain);
+        wallet_1.sendCoins(wallet_2.getAddress(), 2.5d, "", bChain);
 
         System.out.println("\n" + "Ver el total de pigcoins de las dos wallet" + "\n" +
                 "=========================================="            );
