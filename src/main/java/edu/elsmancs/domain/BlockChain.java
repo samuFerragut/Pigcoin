@@ -40,4 +40,10 @@ public class BlockChain {
         return outputTransaction;
     }
 
+    List[] loadWallet(PublicKey address) {
+        List<Transaction> input = loadInputTransactions(address);
+        List<Transaction> output = loadOutputTransactio(address);
+        List[] inOutput = {input, output};
+        return inOutput;
+    }
 }
