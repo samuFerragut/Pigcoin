@@ -46,6 +46,18 @@ public class Transaction {
         return message;
     }
 
+    void setpKey_sender(PublicKey pKey_sender) {
+        this.pKey_sender = pKey_sender;
+    }
+
+    void setpKey_recipient(PublicKey pKey_recipient) {
+        this.pKey_recipient = pKey_recipient;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     @Override
     public String toString() {
         return "\nhash = " + getHash() +
@@ -55,6 +67,4 @@ public class Transaction {
                 "\npigcoins = " + getPigcoins() +
                 "\nmessage = " + getMessage();
     }
-
-
 }
