@@ -31,21 +31,35 @@ public class BlockChain {
 
     List<Transaction> loadInputTransactions(PublicKey address) {
         List<Transaction> inputTransactions = getBlockChain().stream().filter(transaction -> transaction.getPKey_recipient().equals(address))
-                .collect(Collectors.toCollection(ArrayList<Transaction>::new));
+                .collect(Collectors.toCollection(ArrayList::new));
         return inputTransactions;
     }
 
-    List<Transaction> loadOutputTransactio(PublicKey address) {
-        List<Transaction> outputTransaction = getBlockChain().stream().filter(transaction -> transaction.getPKey_sender().equals(address))
-                .collect(Collectors.toCollection(ArrayList<Transaction>::new));
-        return outputTransaction;
+    List<Transaction> loadOutputTransactions(PublicKey address) {
+        List<Transaction> outputTransactions = getBlockChain().stream().filter(transaction -> transaction.getPKey_sender().equals(address))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return outputTransactions;
     }
 
-    List[] loadWallet(PublicKey address) {
-        List<Transaction> input = loadInputTransactions(address);
-        List<Transaction> output = loadOutputTransactio(address);
-        List[] inOutput = {input, output};
-        return inOutput;
+    double[] loadWallet(PublicKey address) {
+
+        double pigcoinIn = 0d;
+        double pigcoinOut = 0d;
+
+        for (Transaction transaction : getBlockChain()) {
+
+            if (address.equals(transaction.getPKey_recipient())) {
+                pigcoinIn = pigcoinIn + transaction.getPigcoins();
+            }
+
+            if (address.equals(transaction.getPKey_sender())) {
+                pigcoinOut = pigcoinOut + transaction.getPigcoins();
+            }
+        }
+
+        double[] pigcoins = {pigcoinIn, pigcoinOut};
+
+        return pigcoins;
     }
 
     void processTransactions(PublicKey address, PublicKey pKey_recipient, Map<String, Double> consumedCoins, String message, byte[] signedTransaction) {
@@ -63,10 +77,10 @@ public class BlockChain {
     }
 
     private void isConsumedCoinsValid(Map<String, Double> consumedCoins) {
+
     }
 
     private boolean isSignatureValid(PublicKey address, String message, byte[] signedTransaction) {
         return GenSig.verify(address, message, signedTransaction);
-
     }
 }

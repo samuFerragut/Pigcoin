@@ -66,13 +66,16 @@ public class Wallet {
         this.balance = balance;
     }
 
+    void updateBalance() {
+        balance = getTotalInput() - getTotalOutput();
+    }
+
     void loadCoins(BlockChain blockChain) {
-        List[] inOutput = blockChain.loadWallet(getAddress());
-        setInputTransactions(inOutput[0]);
-        setOutpuTransactions(inOutput[1]);
-        setTotalInput(loadInputTransactions(blockChain));
-        setTotalOutput(loadOutputTransactions(blockChain));
-        setBalance(getTotalInput() - getTotalOutput());
+        double[] pigcoins = {0d, 0d};
+        pigcoins = blockChain.loadWallet(getAddress());
+        setTotalInput(pigcoins[0]);
+        setTotalOutput(pigcoins[1]);
+        updateBalance();
     }
 
     void setInputTransactions(List<Transaction> inputTransactions) {
@@ -89,15 +92,21 @@ public class Wallet {
 
     double loadInputTransactions(BlockChain blockChain) {
         double input = 0d;
-        blockChain.getBlockChain().stream().filter((transaction) -> (transaction.getPKey_recipient().equals(getAddress())))
-                .map((transaction) -> transaction.getPigcoins()).reduce(input, (accumulator, _item) -> accumulator + _item);
+        blockChain.getBlockChain().stream()
+                .filter((transaction) -> (transaction.getPKey_recipient()
+                        .equals(getAddress())))
+                .map((transaction) -> transaction.getPigcoins())
+                .reduce(input, (accumulator, _item) -> accumulator + _item);
         return input;
     }
 
     double loadOutputTransactions(BlockChain blockChain) {
         double output = 0d;
-        blockChain.getBlockChain().stream().filter((transaction) -> (transaction.getPKey_recipient().equals(getAddress())))
-                .map((transaction) -> transaction.getPigcoins()).reduce(output, (accumulator, _item) -> accumulator + _item);
+        blockChain.getBlockChain()
+                .stream().filter((transaction) -> (transaction.getPKey_recipient()
+                    .equals(getAddress())))
+                .map((transaction) -> transaction.getPigcoins())
+                .reduce(output, (accumulator, _item) -> accumulator + _item);
         return output;
     }
 
