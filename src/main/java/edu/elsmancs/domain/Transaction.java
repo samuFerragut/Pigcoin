@@ -67,4 +67,8 @@ public class Transaction {
                 "\npigcoins = " + getPigcoins() +
                 "\nmessage = " + getMessage();
     }
+
+    public double getPigCoins() {
+        return this.pigcoins;
+    }
 }
